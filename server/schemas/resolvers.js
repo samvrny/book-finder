@@ -6,12 +6,14 @@ const { signtToken } = require('../utils/auth');
 const resolvers = {
     //queries (the 'R' in the CRUD operations)
     Query: {
-
+        helloWorld: () => {
+            return 'Hello World';
+        }
     },
     //mutations ( the 'C, U, and D of the CRUD operations)
-    Mutation: {
+    // Mutation: {
 
-    }
+    // }
 };
 
 //export the resolvers
