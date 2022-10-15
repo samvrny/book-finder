@@ -33,12 +33,30 @@ const resolvers = {
         login: async(parent, { email, password}) => {
             const user = await User.findOne({ email });
 
+            if(!user) {
+                throw new AuthenticationError('Invalid username')
+            }
+
             const correctPassword = await user.isCorrectPassword(password);
+
+            if(!correctPassword) {
+                throw new AuthenticationError('Incorrect password')
+            }
 
             const token = signToken(user)
             return { token, user };
         },
-        //saveBook: async
+        saveBook: async(parent, { bookId }, context) => {
+            if(context.user) {
+                const updatedBookList = await User.findOneAndUpdate(
+                    { _id: User.ID },
+                    { $push: { savedBooks: { bookId } } },
+                    { new: true, runValidators: true }
+                );
+                return updatedBookList;
+            }
+            throw new AuthenticationError('You need to be logged in!')
+        }
     }
 };
 

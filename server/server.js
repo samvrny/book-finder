@@ -9,7 +9,7 @@ const { typeDefs, resolvers } = require('./schemas');
 const { ApolloServer } = require('apollo-server-express');
 
 //WARN: These routes are the originals and will need to be removed later.
-const routes = require('./routes');
+//const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -34,7 +34,7 @@ app.get('*', (req, res) => {
 });
 
 //WARN these are the original routes and will need to be eliminated before deployment
-app.use(routes);
+//app.use(routes);
 
 //start the apollo server
 const startApolloServer = async (typeDefs, resolvers) => {
